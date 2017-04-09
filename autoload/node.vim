@@ -59,10 +59,11 @@ function! s:edit(name, from, ...)
 	end
 
 	if empty(path)
-		return s:error("E447: Can't find file \"" . a:name . "\" in path")
+        " fall back to native vim find file
+        find <cfile>
+    else
+        execute command . " " . fnameescape(path)
 	endif
-
-	exe command . " " . fnameescape(path)
 endfunction
 
 function! s:nedit(name, from, ...)
